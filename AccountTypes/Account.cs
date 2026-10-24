@@ -11,7 +11,7 @@
             this.Balance = balance;
         }
 
-        public bool Deposit(double amount)
+        public virtual bool Deposit(double amount)
         {
             if (amount < 0)
                 return false;
@@ -22,7 +22,7 @@
             }
         }
 
-        public bool Withdraw(double amount)
+        public virtual bool Withdraw(double amount)
         {
             if (Balance - amount >= 0)
             {
@@ -34,6 +34,7 @@
                 return false;
             }
         }
+        //============================
         public override string ToString()
         {
             return $"Account Details :\nname: {Name} , balance: {this.Balance}";
