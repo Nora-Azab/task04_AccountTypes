@@ -1,10 +1,10 @@
 ﻿namespace AccountTypes
 {
-    public class Saving : Account
+    public class SavingsAccount : Account
     {
         public double InterestRate { get; set; }
 
-        public Saving(string name= "Unnamed Account", double balance = 0.0, double interestRate=0.0) : base(name, balance)
+        public SavingsAccount(string name= "Unnamed Account", double balance = 0.0, double interestRate=0.0) : base(name, balance)
         {
             this.InterestRate = interestRate;
         }

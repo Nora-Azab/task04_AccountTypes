@@ -1,4 +1,6 @@
-﻿namespace AccountTypes
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace AccountTypes
 {
     internal class Program
     {
@@ -15,55 +17,57 @@
             //Console.WriteLine(trust); 
             #endregion
 
-            Account account = new Account("noura", 0);
-            Account checking = new Checking("noha", 1000);
+            #region trying test cases for withdrawal and deposit for the three accounts :)
+            //Account account = new Account("noura", 0);
+            //Account checking = new CheckingAccount("noha", 1000);
 
-            ///VIP:
-            ///Saving trust = new Trust("fareda", 2000);
-            ///incase i used a ref from "saving" -> compiler will virtually use Deposit() of "saving" in compilation time , then in run time it will use Deposit() of "Trust"
-            Account trust = new Trust("fareda", 2000);
-            /// but incase i used a ref from "Account" -> compiler will tend to use Deposit() of Account which is NOT virtual -> so will execut it and will not postpone to the run time :)
-            /// so we must start virtual from "Account"
+            /////VIP:
+            /////Saving trust = new Trust("fareda", 2000);
+            /////incase i used a ref from "saving" -> compiler will virtually use Deposit() of "saving" in compilation time , then in run time it will use Deposit() of "Trust"
+            //Account trust = new TrustAccount("fareda", 2000);
+            ///// but incase i used a ref from "Account" -> compiler will tend to use Deposit() of Account which is NOT virtual -> so will execut it and will not postpone to the run time :)
+            ///// so we must start virtual from "Account"
 
-            //Deposit :)
-            account.Deposit(1000);
-            ////Console.WriteLine(account);//1000
-            ////--------------------
-            checking.Deposit(2000);
-            ////Console.WriteLine(checking);//3000
-            ////--------------------
-            trust.Deposit(5000);//   >=5000 -> balance+= 50         VIP :)
-                                //Console.WriteLine(trust);//7050
-            Console.WriteLine($"after deposite :\n{trust}");
+            ////Deposit :)
+            //account.Deposit(1000);
+            //////Console.WriteLine(account);//1000
+            //////--------------------
+            //checking.Deposit(2000);
+            //////Console.WriteLine(checking);//3000
+            //////--------------------
+            //trust.Deposit(5000);//   >=5000 -> balance+= 50         VIP :)
+            ////Console.WriteLine(trust);//7050
+            //Console.WriteLine($"after deposite :\n{trust}");
 
-            //withdraw :)
-            //account.Withdraw(50);
-            //Console.WriteLine(account);//1000-50 = 950
-            ////--------------------
-            //checking.Withdraw(50);
-            //Console.WriteLine(checking);//3000-(50+1.5)=2948.5
-            ////--------------------
-            ///
-            Console.WriteLine();
-            trust.Withdraw(50);//1st successful withdraw
-            Console.WriteLine(trust);//7050-50 = 7000
-            Console.WriteLine();
+            ////withdraw :)
+            ////account.Withdraw(50);
+            ////Console.WriteLine(account);//1000-50 = 950
+            //////--------------------
+            ////checking.Withdraw(50);
+            ////Console.WriteLine(checking);//3000-(50+1.5)=2948.5
+            //////--------------------
+            /////
+            //Console.WriteLine();
+            //trust.Withdraw(2000);//1st successful withdraw
+            //Console.WriteLine(trust);//
+            //Console.WriteLine();
 
-            trust.Withdraw(5000);// >20%  * balance=7000
-            Console.WriteLine(trust);//7050-50 = 7000
-            Console.WriteLine();
-            //-----------
-            trust.Withdraw(50);//2nd successful withdraw
-            Console.WriteLine(trust);//7000-50 = 6950
-            Console.WriteLine();
+            ////trust.Withdraw(5000);// >20%  * balance=
+            ////Console.WriteLine(trust);//
+            ////Console.WriteLine();
+            ////-----------
+            //trust.Withdraw(3000);//2nd successful withdraw
+            //Console.WriteLine(trust);//
+            //Console.WriteLine();
 
-            trust.Withdraw(50);//3rd successful withdraw
-            Console.WriteLine(trust);//6950-50 = 6900
-            Console.WriteLine();
-            //-----------
-            trust.Withdraw(50);
-            Console.WriteLine(trust);
+            //trust.Withdraw(500);//3rd successful withdraw
+            //Console.WriteLine(trust);//
+            //Console.WriteLine();
+            ////-----------
+            //trust.Withdraw(50);
+            //Console.WriteLine(trust);
 
+            #endregion
 
 
             //======================
@@ -86,6 +90,13 @@
             //DateTime d1 = DateTime.Now;
             //Console.WriteLine(d1);//10/24/2026 1:16:55 PM
             //Console.WriteLine(DateTime.Now - d1);//00:00:00.0148859
+            //Console.WriteLine("+++++++++");
+            //DateTime? d = null;
+            //if(d==DateTime.Now)
+            //    Console.WriteLine("yes");
+            //Console.WriteLine(d.HasValue);//false
+            //if(null <= DateTime.Now)
+            //    Console.WriteLine("yesssss");
 
             #endregion
 

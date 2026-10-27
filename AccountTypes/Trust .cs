@@ -1,73 +1,79 @@
 ﻿namespace AccountTypes
 {
-    public class Trust:Saving
+    
+    //دلوقتي انا بحسب السنة ال فيها مسموح له انه يسحب 3 مرات فقط .. بداية من أول سحب عموما سواء ناجح هذا السحب أو لأ
+    public class TrustAccount:SavingsAccount
     {
         //fields :)
-        bool firstTime = true;
-        ///DateTime resetDate = DateTime.Now; // it's wrong لأن هتتنفذ اول ما اعمل الاوبجيكت 
-        ///and then mammybe i decide to do s.things not withdrawal , so the time will not the same :)
-
-        const int withdrawalCountPerYear = 3;//TODO:  which is right?
-        //public int withdrawalCountPerYear { get; protected set; } = 3;// 3 withdrawals per year  
-        int cnt = withdrawalCountPerYear;//عملت ده مستقل عشان انقص فيه براحتي ... ويكون مكان واحد بغير فيه هو ال فوق بس
-        DateTime resetDate = DateTime.Now;
+        //const is considered that it's for the class Not an object :)   so we can't write this.(const varIABLE)
+        const double Bonus = 50;
+        const double MinAmountToAddBonus = 5000;
+        //-------
+        bool firstWithdrawal = true;
+        const int WithdrawalCountPerYear = 3;//it's better than prop
+        int cnt = WithdrawalCountPerYear;//عملت ده مستقل عشان انقص فيه براحتي ... ويكون مكان واحد بغير فيه هو ال فوق بس
+        DateTime endOfYear = DateTime.Now;
+        /// i don't init by "null" -> because this line "endOfYear = endOfYear.AddYears(1);" -> give me compile erroe
 
         //-------------------------
         //props:
-        public double MaximumLimit { get; protected set; } = 0.20; //20%
-        public Trust(string name= "Unnamed Account", double balance=0.0, double interestRate=0.0):base(name , balance , interestRate)
+        public const double MaximumLimit  = 0.20; //20%
+        public TrustAccount(string name= "Unnamed Account", double balance=0.0, double interestRate=0.0):base(name , balance , interestRate)
         {
             
         }
-
-        //deposite
-        //The Trust account deposit works just like a savings account deposit
-        //any deposits of $5000.00 or more will receive a $50.00 bonus deposited to the account.
-
         public override bool Deposit(double amount)
         {
-            amount = (amount >= 5000 ? amount += 50 : amount);
+            if (amount >= MinAmountToAddBonus)
+                amount += Bonus;
             return base.Deposit(amount );
         }
-
-        //withdraw
-        //The Trust account withdrawal should only allow 3 withdrawals per year
-        //and each of these must be less than 20% of the account balance.
+        //--------------------
         public override bool Withdraw(double amount)
         {
+            //DateTime now = new DateTime(2027 , 10 , 26 , 12 , 17 , 1);//10/26/2027 12:17:01 PM
+            DateTime now = DateTime.Now;
+
+            //وبكده هنحسب بداية السنة ال بيتم فيها 3 عمليات فقط بداية من أول عملية سحب عموما سواء ناجحة او لأ
+            if (firstWithdrawal)
+            {
+                endOfYear = now.AddYears(1);
+                firstWithdrawal = false;
+            }
+            //---------------
+            //this reset :happen if the process successed or not :)
+            if (endOfYear <= now)// بيحصل لما السنة تخلص .. reset ال
+            { 
+                cnt = WithdrawalCountPerYear;
+
+                //عشان لو عدى سنين كتير ولسه حضرته داخل يعمل سحب فنريست التاريح صح
+                ///wrong solution :)   مش بيراعي الشهور
+                ///now = 5/1/2028  ,  end = 1/12/2027  -> will add 2 years
+                /// endOfYear = endOfYear.AddYears((now.Year - endOfYear.Year)+1);
+                /// 
+                while (endOfYear <= now)
+                {
+                    endOfYear = endOfYear.AddYears(1);
+                }
+            }
+            //---------------
             if (amount < (MaximumLimit * this.Balance))
             {
-                
-                if (resetDate == DateTime.Now) //to reset only ... no first time(هيكون عدى وقت) 
-                    cnt = withdrawalCountPerYear;
-                //------------
-                if (resetDate > DateTime.Now || cnt == 0)
-                    {
-                        Console.WriteLine($"sorry u reached the max limit ,u can do new withdrawal at {resetDate}");
-                        return false;
-                    }
-                //------------
-                if (base.Withdraw(amount))
+                //if (endOfYear > now && cnt > 0)//في فرصة اسحب
+                if ( cnt > 0)//"endOfYear > now"  ->  i will not need it because (above) we checked for reset endOfYear always, so this condition always will be true ")
                 {
-                    cnt--;
-                    if(cnt == 0)
-                        resetDate = DateTime.Now.AddYears(1) ;
-                    Console.WriteLine($"done u Withdraw {amount} from your account :), it's {withdrawalCountPerYear - cnt} time u withdraw in this year");
-                    return true;
+                    if (base.Withdraw(amount)) 
+                    {
+                        cnt--;
+                        //Console.WriteLine($"done u Withdraw {amount} from your account :), it's {WithdrawalCountPerYear - cnt} time u withdraw in this year");
+                        //Console.WriteLine($"end of year: {endOfYear}"); 
+                       return true;
+                    }
                 }
-                Console.WriteLine($"sorry u reached the max limit ,u can do new withdrawal at {resetDate}");
-                return false;
-
+                //Console.WriteLine($"it's {WithdrawalCountPerYear - cnt} time u withdraw in this year, and 3 times only allowed during the year ,will be allowed in {endOfYear.Date} :)");
             }
-            Console.WriteLine("Not allowed, money must be less than 20% of the account balance :(");
-             return false;
-        }
-
-
-        //========================
-        public override string ToString() // كان ممكن مكتبهاش بردو
-        {
-            return base.ToString();
+            //Console.WriteLine("Not allowed, money must be less than 20% of the account balance :(");
+                 return false;
         }
 
     }
