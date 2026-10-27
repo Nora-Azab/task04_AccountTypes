@@ -19,7 +19,9 @@
         //============================
         public override string ToString()
         {
-            return $"{base.ToString()} , fee: {Fee}";
+            string baseDetails = base.ToString();
+            string baseDetailsModified = baseDetails.Remove(baseDetails.Length - 1);// remove the last char :)   ->  '}'
+            return $"{baseDetailsModified} , fee: {Fee}}}";
         }
 
     }

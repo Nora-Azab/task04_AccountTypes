@@ -1,4 +1,6 @@
-﻿namespace AccountTypes
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AccountTypes
 {
     public class SavingsAccount : Account
     {
@@ -11,7 +13,9 @@
         //=========================
         public override string ToString()
         {
-            return $"{base.ToString()} , interestRata: {this.InterestRate}";
+            string baseDetails = base.ToString();
+            string baseDetailsModified = baseDetails.Remove(baseDetails.Length-1);// remove the last char :)   ->  '}'
+            return $"{baseDetailsModified} , interestRata: {this.InterestRate}}}";
         }
     }
 }

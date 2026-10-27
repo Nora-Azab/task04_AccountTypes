@@ -37,7 +37,7 @@
         //============================
         public override string ToString()
         {
-            return $"Account Details :\nname: {Name} , balance: {this.Balance}";
+            return $"{{name: {Name} , balance: {this.Balance}}}";
         }
 
     }

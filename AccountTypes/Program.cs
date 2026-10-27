@@ -6,6 +6,8 @@ namespace AccountTypes
     {
         static void Main(string[] args)
         {
+            #region my test cases:)
+
             #region test the constractors and ToString() of the classes :)
             //Account account = new Account();
             ////Console.WriteLine(account);
@@ -100,7 +102,73 @@ namespace AccountTypes
 
             #endregion
 
+            #endregion
 
-        }
+            
+            //============================
+            // Accounts
+            var accounts = new List<Account>();
+            accounts.Add(new Account());
+            accounts.Add(new Account("Larry"));
+            accounts.Add(new Account("Moe", 2000));
+            accounts.Add(new Account("Curly", 5000));
+
+            AccountUtil.Deposit(accounts, 1000);
+            AccountUtil.Withdraw(accounts, 2000);
+
+            // Savings
+            var savAccounts = new List<Account>();
+            //var savAccounts = new List<SavingsAccount>();
+            savAccounts.Add(new SavingsAccount());
+            savAccounts.Add(new SavingsAccount("Superman"));
+            savAccounts.Add(new SavingsAccount("Batman", 2000));
+            savAccounts.Add(new SavingsAccount("Wonderwoman", 5000, 5.0));
+
+            AccountUtil.Deposit(savAccounts, 1000);
+            AccountUtil.Withdraw(savAccounts, 2000);
+               
+            //AccountUtil.DepositSavings(savAccounts, 1000);
+            //AccountUtil.WithdrawSavings(savAccounts, 2000);
+
+            // Checking
+            var checAccounts = new List<Account>();
+            //var checAccounts = new List<CheckingAccount>();
+            checAccounts.Add(new CheckingAccount());
+            checAccounts.Add(new CheckingAccount("Larry2"));
+            checAccounts.Add(new CheckingAccount("Moe2", 2000));
+            checAccounts.Add(new CheckingAccount("Curly2", 5000));
+
+            AccountUtil.Deposit(checAccounts, 1000);
+            AccountUtil.Withdraw(checAccounts, 2000);
+            AccountUtil.Withdraw(checAccounts, 2000);
+
+            //AccountUtil.DepositChecking(checAccounts, 1000);
+            //AccountUtil.WithdrawChecking(checAccounts, 2000);
+            //AccountUtil.WithdrawChecking(checAccounts, 2000);
+
+            // Trust
+            var trustAccounts = new List<Account>();
+            //var trustAccounts = new List<TrustAccount>();
+            trustAccounts.Add(new TrustAccount());
+            trustAccounts.Add(new TrustAccount("Superman2"));
+            trustAccounts.Add(new TrustAccount("Batman2", 2000));
+            trustAccounts.Add(new TrustAccount("Wonderwoman2", 5000, 5.0));
+
+            AccountUtil.Deposit(trustAccounts, 1000);
+            AccountUtil.Deposit(trustAccounts, 6000);
+            AccountUtil.Withdraw(trustAccounts, 2000);
+            AccountUtil.Withdraw(trustAccounts, 3000);
+            AccountUtil.Withdraw(trustAccounts, 500);
+
+            //AccountUtil.DepositTrust(trustAccounts, 1000);
+            //AccountUtil.DepositTrust(trustAccounts, 6000);
+            //AccountUtil.WithdrawTrust(trustAccounts, 2000);
+            //AccountUtil.WithdrawTrust(trustAccounts, 3000);
+            //AccountUtil.WithdrawTrust(trustAccounts, 500);
+
+            Console.WriteLine();
+      
+
+}
     }
 }
