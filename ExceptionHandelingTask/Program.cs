@@ -39,7 +39,7 @@ namespace ExceptionHandelingTask
                 if the string does not contain vowels.
              */
             Console.WriteLine("enter a string contain vowels:");
-            string input = Console.ReadLine();
+            string input = Console.ReadLine().ToLower();
             try
             {
                 CheckString(input);
